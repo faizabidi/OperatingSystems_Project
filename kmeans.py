@@ -1,11 +1,6 @@
 from pyspark import SparkContext
-from pyspark.mllib.classification import LogisticRegressionWithLBFGS, LogisticRegressionModel
-from pyspark.mllib.regression import LabeledPoint
-from datetime import datetime
-from pyspark.mllib.evaluation import MulticlassMetrics
-
-from numpy import array
 from math import sqrt
+from numpy import array
 
 from pyspark.mllib.clustering import KMeans, KMeansModel
 
@@ -15,8 +10,8 @@ data = sc.textFile("/home/faiz89/git/OperatingSystems_Project/sat.tst")
 parsedData = data.map(lambda line: array([float(x) for x in line.split(' ')]))
 
 # Build the model (cluster the data)
-clusters = KMeans.train(parsedData, 10, maxIterations=10000,
-                        runs=10000, initializationMode="random")
+clusters = KMeans.train(parsedData, 2, maxIterations=100,
+                        runs=100, initializationMode="random")
 
 # Evaluate clustering by computing Within Set Sum of Squared Errors
 def error(point):
