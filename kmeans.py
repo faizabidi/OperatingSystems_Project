@@ -5,9 +5,9 @@ from numpy import array
 from pyspark.mllib.clustering import KMeans, KMeansModel
 
 # Load and parse the data
-sc = SparkContext ("local", "http://archive.ics.uci.edu - Single Node")
-data = sc.textFile("/home/faiz89/git/OperatingSystems_Project/sat.tst")
-parsedData = data.map(lambda line: array([float(x) for x in line.split(' ')]))
+sc = SparkContext (appName="http://www.uncg.edu/cmp/downloads/MyPrismacolors1.zip - 4T 1000M")
+data = sc.textFile("/home/pi/data/MyPrismacolors1.csv")
+parsedData = data.map(lambda line: array([float(x) for x in line.split(',')]))
 
 # Build the model (cluster the data)
 clusters = KMeans.train(parsedData, 2, maxIterations=100,
@@ -22,5 +22,5 @@ WSSSE = parsedData.map(lambda point: error(point)).reduce(lambda x, y: x + y)
 print("Within Set Sum of Squared Error = " + str(WSSSE))
 
 # Save and load model
-clusters.save(sc, "/home/faiz89/git/OperatingSystems_Project/KMeansModel")
-sameModel = KMeansModel.load(sc, "/home/faiz89/git/OperatingSystems_Project/KMeansModel")
+# clusters.save(sc, "/home/faiz89/git/OperatingSystems_Project/KMeansModel")
+# sameModel = KMeansModel.load(sc, "/home/faiz89/git/OperatingSystems_Project/KMeansModel")
