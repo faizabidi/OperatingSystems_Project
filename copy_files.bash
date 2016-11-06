@@ -8,7 +8,7 @@ fi
 filename=$1
 path=$2
 
-CMD="scp -r $1"
+#CMD="scp -r $1"
 
 for i in {2..10}; do
      scp -r $filename 192.168.1.$i:$path
