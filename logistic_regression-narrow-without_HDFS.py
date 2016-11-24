@@ -4,11 +4,12 @@ from pyspark.mllib.regression import LabeledPoint
 from datetime import datetime
 from numpy import array
 
-sc = SparkContext (appName="Run 1 - Logistic Regression Narrow - Data2008 - AWS")
+sc = SparkContext (appName="Logistic Regression Narrow - 1_Million")
 
-data_file = "/home/pi/data/2008.csv"
+data_file = "/home/pi/data/2008_1000000L.csv"
 
 raw_data = sc.textFile (data_file).cache()
+#raw_data = sc.textFile(data_file)
 
 #extract the header
 header = raw_data.first()
@@ -18,7 +19,7 @@ raw_data = raw_data.filter (lambda x:x != header)
 #load and parse the data
 def parsePoint (line):
 	#split lines based on the delimeter, and create a list
-	line_split = line.split (",")
+	line_split = line.split(",")
 
 	#substituting NA with zeros
 	line_split = [w.replace ('NA', '0') for w in line_split]
